@@ -1,0 +1,24 @@
+@startuml
+
+@startmindmap parse_tree
+
+* E
+** a
+** :=
+** E
+*** E
+**** a
+*** and
+*** E
+**** ( 
+**** E
+***** E
+****** a
+***** or
+***** a
+**** )
+** ;
+
+@endmindmap
+
+@enduml

@@ -104,6 +104,7 @@ $$
 
 Предложение: `a := 0xFFF and (b or c);`
 <!--LTeX: enabled=false-->
+
 | Входная строка            | Стек                    | Действие     |
 |:--------------------------| ---------------------   | ------------:|
 | a := a and (a or a); к    |  н                      |  п           | 
@@ -133,7 +134,8 @@ $$
 E -> a :=E; -> a :=E and E; -> a :=E and (E); -> a := E and (E or a); -> a := E and (a or a); -> a := a and (a or a);
 
 ```{ .plantuml caption="Дерево вывода" }
-@startmindmap дерево вывода
+
+@startmindmap
 
 * E
 ** a
@@ -153,9 +155,61 @@ E -> a :=E; -> a :=E and E; -> a :=E and (E); -> a := E and (E or a); -> a := E 
 ** ;
 
 @endmindmap
+
 ```
 
-## Составление программы
+## Текст программы
+
+
+~~~{include=proj/main.go .golang caption="main.go"}
+~~~
+
+~~~{include=proj/token_analyzer/token_patterns.go .golang caption="proj/token_analyzer/token_patterns.go"}
+~~~
+
+~~~{include=proj/token_analyzer/token_analyzer.go .golang caption="proj/token_analyzer/token_analyzer.go"}
+~~~
+
+~~~{include=proj/main.go .golang caption="proj/main.go"}
+~~~
+
+~~~{include=proj/token/token.go .golang caption="proj/token/token.go"}
+~~~
+
+~~~{include=proj/token/token_type.go .golang caption="proj/token/token_type.go"}
+~~~
+
+~~~{include=proj/token_table/token_table.go .golang caption="proj/token_table/token_table.go"}
+~~~
+
+~~~{include=proj/syntax_analyzer/parse_tree/node.go .golang caption="proj/syntax_analyzer/parse_tree/node.go"}
+~~~
+
+~~~{include=proj/syntax_analyzer/symbol_stack.go .golang caption="proj/syntax_analyzer/symbol_stack.go"}
+~~~
+
+~~~{include=proj/syntax_analyzer/rule/rule.go .golang caption="proj/syntax_analyzer/rule/rule.go"}
+~~~
+
+~~~{include=proj/syntax_analyzer/rule/rule_table.go .golang caption="proj/syntax_analyzer/rule/rule_table.go"}
+~~~
+
+~~~{include=proj/syntax_analyzer/syntax_analyzer.go .golang caption="proj/syntax_analyzer/syntax_analyzer.go"}
+~~~
+
+~~~{include=proj/syntax_analyzer/parse_tree/parse_tree.go .golang caption="proj/syntax_analyzer/parse_tree/parse_tree.go"}
+~~~
+
+~~~{include=proj/syntax_analyzer/nonterminal/nonterminal.go .golang caption="proj/syntax_analyzer/nonterminal/nonterminal.go"}
+~~~
+
+~~~{include=proj/syntax_analyzer/precedence/precedence_type.go .golang caption="proj/syntax_analyzer/precedence/precedence_type.go"}
+~~~
+
+~~~{include=proj/syntax_analyzer/precedence/precenence_matrix.go .golang caption="proj/syntax_analyzer/precedence/precenence_matrix.go"}
+~~~
+
+
 
 ## Примеры работы программы
 
