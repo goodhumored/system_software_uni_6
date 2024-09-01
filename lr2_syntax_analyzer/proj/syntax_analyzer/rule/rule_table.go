@@ -1,22 +1,11 @@
 package rule
 
-import (
-	"goodhumored/lr2_syntax_analyzer/syntax_analyzer/nonterminal"
-)
-
+// Таблица правил
 type RuleTable struct {
 	Rules []Rule
 }
 
-func (ruleTable RuleTable) GetRuleByLeftSide(nonterminal nonterminal.NonTerminal) *Rule {
-	for _, rule := range ruleTable.Rules {
-		if rule.Left == nonterminal {
-			return &rule
-		}
-	}
-	return nil
-}
-
+// Метод поиска правила по правой части
 func (ruleTable RuleTable) GetRuleByRightSide(tokenTypes []Symbol) *Rule {
 	for _, rule := range ruleTable.Rules {
 		if isApplyable(rule.Right, tokenTypes) {
@@ -26,13 +15,14 @@ func (ruleTable RuleTable) GetRuleByRightSide(tokenTypes []Symbol) *Rule {
 	return nil
 }
 
+// Проверка на применимость правила к целевым символам
 func isApplyable(ruleSymbols, targetSymbols []Symbol) bool {
-	ruleLen := len(ruleSymbols)
-	targetLen := len(targetSymbols)
-	lenDiff := targetLen - ruleLen
+	// Проверяем длины
+	lenDiff := len(targetSymbols) - len(ruleSymbols)
 	if lenDiff < 0 {
 		return false
 	}
+	// Сравниваем последние символы цепочки символов и символы правила
 	for i, ruleSymbol := range ruleSymbols {
 		if ruleSymbol.GetName() != targetSymbols[i+lenDiff].GetName() {
 			return false

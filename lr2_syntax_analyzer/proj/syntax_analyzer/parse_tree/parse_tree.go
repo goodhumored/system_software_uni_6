@@ -6,22 +6,17 @@ import (
 	"goodhumored/lr2_syntax_analyzer/syntax_analyzer/rule"
 )
 
+// Дерево вывода
 type ParseTree struct {
 	Root *Node
 }
 
-func (tree ParseTree) Print() {
-	tree.Root.Print("", true)
-}
-
-func (tree ParseTree) FindNode(symbolName string) *Node {
-	return tree.Root.GetChildWithName(symbolName)
-}
-
+// Метод добавления узлов в дерево
 func (tree *ParseTree) AddNode(node *Node) {
 	tree.Root.AddChild(node)
 }
 
+// Метод для свёртки дерева по правилу
 func (tree *ParseTree) Reduce(rule rule.Rule) {
 	fmt.Printf("Применяем правило %s к дереву\n", rule)
 	if tree.Root.Reduce(rule) {
@@ -29,4 +24,9 @@ func (tree *ParseTree) Reduce(rule rule.Rule) {
 	} else {
 		fmt.Printf("Правило %s применить не удалось\n", rule)
 	}
+}
+
+// Метод для вывода дерева
+func (tree ParseTree) Print() {
+	tree.Root.Print("", true)
 }

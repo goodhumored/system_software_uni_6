@@ -23,6 +23,7 @@ var rulesTable = rule.RuleTable{Rules: []rule.Rule{
 	{Left: nonterminal.E, Right: []rule.Symbol{token.IdentifierType}},
 }}
 
+// Матрица предшествования
 var precedenceMatrix = precedence.PrecedenceMatrix{
 	token.IdentifierType:   map[token.TokenType]precedence.PrecedenceType{token.AssignmentType: precedence.Eq, token.RightParenthType: precedence.Gt, token.OrType: precedence.Gt, token.XorType: precedence.Gt, token.AndType: precedence.Gt, token.DelimiterType: precedence.Gt},
 	token.AssignmentType:   map[token.TokenType]precedence.PrecedenceType{token.IdentifierType: precedence.Lt, token.LeftParenthType: precedence.Lt, token.RightParenthType: precedence.Lt, token.NotType: precedence.Lt, token.OrType: precedence.Lt, token.XorType: precedence.Lt, token.AndType: precedence.Lt, token.DelimiterType: precedence.Eq},
@@ -48,6 +49,7 @@ func main() {
 	fmt.Println("Таблица лексем:")
 	fmt.Println(tokenTable)
 
+	// Проверяем на ошибки
 	if errors := tokenTable.GetErrors(); len(errors) > 0 {
 		fmt.Printf("Во время лексического анализа было обнаружено: %d ошибок:\n", len(errors))
 		for _, error := range errors {

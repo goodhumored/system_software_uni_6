@@ -7,20 +7,15 @@ import (
 	"goodhumored/lr2_syntax_analyzer/token"
 )
 
+// Стек символов
 type symbolStack []rule.Symbol
 
+// Добавление символа в стек
 func (s symbolStack) Push(e rule.Symbol) symbolStack {
 	return append(s, e)
 }
 
-func (s symbolStack) Pop() (symbolStack, rule.Symbol) {
-	length := len(s)
-	if length == 0 {
-		return s, nil
-	}
-	return s[:length-1], s[length-1]
-}
-
+// Просмотр верхнего элемента стека
 func (s symbolStack) Peek() rule.Symbol {
 	length := len(s)
 	if length == 0 {
@@ -29,6 +24,7 @@ func (s symbolStack) Peek() rule.Symbol {
 	return s[length-1]
 }
 
+// Просмотр n-ного элемента стека
 func (s symbolStack) PeekN(n int) rule.Symbol {
 	length := len(s)
 	if length == 0 {
@@ -37,6 +33,7 @@ func (s symbolStack) PeekN(n int) rule.Symbol {
 	return s[length-n-1]
 }
 
+// Поиск ближайшего к вершине терминала в стеке
 func (s symbolStack) PeekNextTerminal() *token.Token {
 	for i := range s {
 		symbol := s.PeekN(i)
@@ -47,6 +44,7 @@ func (s symbolStack) PeekNextTerminal() *token.Token {
 	return nil
 }
 
+// Вспомогательный метод преобразования стека символов в строку
 func (s symbolStack) String() string {
 	str := ""
 	for _, i := range s {
@@ -55,6 +53,7 @@ func (s symbolStack) String() string {
 	return str
 }
 
+// Вспомогательный метод вывода стека символов
 func (s symbolStack) Print() {
 	fmt.Print(s.String())
 }
