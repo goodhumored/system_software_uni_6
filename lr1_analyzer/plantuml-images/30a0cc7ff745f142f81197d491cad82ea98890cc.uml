@@ -1,0 +1,52 @@
+@startuml
+
+@startuml
+[*] --> Start
+
+Start --> Identifier : [a-zA-Z][a-zA-Z0-9]* (Идентификатор)
+Start --> HexNumber : 0x[0-9A-Fa-f]+ (Шестнадцатеричное число)
+Start --> Assignment : := (Присваивание)
+Start --> Operator : or|xor|and|not (Логический оператор)
+Start --> OpenBracket : ( (Открывающая скобка)
+Start --> CloseBracket : ) (Закрывающая скобка)
+Start --> Semicolon : ; (Разделитель)
+Start -[#red]-> Error : [Другие символы]
+Start -[#gray]-> Comment : ~#.* (Комментарий)
+
+Identifier --> Operator : or|xor|and|not
+Identifier --> Assignment : :=
+Identifier --> CloseBracket
+Identifier -[#red]-> Error : [Другие символы]
+
+HexNumber --> Operator : or|xor|and|not
+HexNumber --> Semicolon : ;
+HexNumber --> CloseBracket
+HexNumber -[#red]-> Error : [Другие символы]
+
+Assignment --> Identifier
+Assignment --> HexNumber
+Assignment --> OpenBracket
+Assignment -[#red]-> Error : [Другие символы]
+
+Operator --> Identifier
+Operator --> HexNumber
+Operator --> OpenBracket
+Operator -[#red]-> Error : [Другие символы]
+
+OpenBracket --> Identifier
+OpenBracket --> HexNumber
+OpenBracket --> OpenBracket
+OpenBracket -[#red]-> Error : [Другие символы]
+
+CloseBracket --> Operator
+CloseBracket --> CloseBracket
+CloseBracket --> Semicolon
+CloseBracket -[#red]-> Error : [Другие символы]
+
+Comment -[#gray]-> [*] : Игнорировать строку (до конца строки)
+
+Semicolon --> [*]
+
+Error --> [*] : [Ошибка]
+@enduml
+@enduml

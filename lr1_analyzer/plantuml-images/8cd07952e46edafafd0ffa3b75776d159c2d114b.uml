@@ -1,0 +1,35 @@
+@startuml
+[*] --> Start
+
+Start --> Identifier : [a-zA-Z][a-zA-Z0-9]* (Идентификатор)
+Start --> HexNumber : 0x[0-9A-Fa-f]+ (Шестнадцатеричное число)
+Start --> Assignment : := (Присваивание)
+Start --> Operator : or|xor|and|not (Логический оператор)
+Start --> OpenBracket : ( (Открывающая скобка)
+Start --> CloseBracket : ) (Закрывающая скобка)
+Start --> Semicolon : ; (Разделитель)
+
+Identifier --> Operator : or|xor|and|not
+Identifier --> Assignment : :=
+
+HexNumber --> Operator : or|xor|and|not
+HexNumber --> Semicolon : ;
+
+Assignment --> Identifier
+Assignment --> HexNumber
+
+Operator --> Identifier
+Operator --> HexNumber
+Operator --> OpenBracket
+
+OpenBracket --> Identifier
+OpenBracket --> HexNumber
+OpenBracket --> OpenBracket
+
+CloseBracket --> Operator
+CloseBracket --> CloseBracket
+CloseBracket --> Semicolon
+
+Semicolon --> [*]
+
+@enduml
